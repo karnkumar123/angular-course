@@ -1,0 +1,9 @@
+Day 1 -------------------------------------------------------------------------------------->
+
+1> Angular is a javascript framework which allow us to create reactive SPA.
+2> SPA - single page application
+3> SPA means one index.html page that we load in the browser. In SPA, we dont load the 
+   different page on user action instead we change/render the part of the same page i.e index.html
+
+Till getting started video2
+<-------------------------------------------------------------------------------------------
