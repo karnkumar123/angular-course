@@ -4,6 +4,40 @@ Day 1 --------------------------------------------------------------------------
 2> SPA - single page application
 3> SPA means one index.html page that we load in the browser. In SPA, we dont load the 
    different page on user action instead we change/render the part of the same page i.e index.html
+4> Angular 2 was completely rewritten from angular1(angularjs).
+5> Angular team has a committment to release a majaor version in every 6 month.
+6> We write code in typescript.It has more features than vanilla javascript.
+7> The compilation process(TS ->JS) is automatically done by angular cli.
+8> We can install bootstrap for our app.
+   -> npm i --save bootstrap@lates
+   -> add this "node_modules/bootstrap/dist/css/bootstrap.min.css" in angular.json file
 
-Till getting started video2
+    "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css"
+     ],
+
+9> How angular starts ?
+   -> main.ts is the entry point for angular application.
+   -> In main.ts file we are bootstraping the AppModule.
+      platformBrowserDynamic().bootstrapModule(AppModule)
+      .catch(err => console.error(err));
+   -> In Appmodule , we have this one inside @NgModule decorator
+      A bootstrap array which is basically a list of all the components which should be known to the compiler
+      at the point of time it analyzes our index.html file.
+      bootstrap: [AppComponent]
+   -> then we will go to AppComponent where we see the selector app-root and this 
+      app-root will be injected in index.html file which is served by server.
+   -> Angular doesn't scan the all project, it only scan the module.ts file thats why
+      we have to register all the components services in the module.
+  
+10> ng g component new-module/new-component  --> generate component inside any new module
+
+11> ng serve --open --port 4200
+
+12>
+Till getting started video 21
 <-------------------------------------------------------------------------------------------
+
+DAY 2------------------------------------------------------------------------------------->
+<------------------------------------------------------------------------------------------

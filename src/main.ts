@@ -9,4 +9,5 @@ if (environment.production) {
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)
+  .then(() => console.log('Appmodule is bootstrap first'))
   .catch(err => console.error(err));
