@@ -34,10 +34,44 @@ Day 1 --------------------------------------------------------------------------
 10> ng g component new-module/new-component  --> generate component inside any new module
 
 11> ng serve --open --port 4200
-
-12>
-Till getting started video 21
 <-------------------------------------------------------------------------------------------
 
 DAY 2------------------------------------------------------------------------------------->
+
+1> @component must contain template. selector and styles are optional but template is mandatory.
+
+2> @component's template may have both template and templateUrl.
+   we should template if we want to write inline html otherwise we will give templateUrl.
+
+3> @component style property may be of two types - styles and styleUrls. Both must be array
+   styleUrls: ['./style1.css', './style2.css'] or
+   styles: ['h1{color: red}', 'p{font-size: medium}']
+
+4> @component's selector property must be a unique so that we dont override accidently.
+
+5> What is attribute selector in css?
+   -> To style HTML elements that have specific attributes or attribute values.
+   e.g,
+      input[type=text] {
+         width: 150px;
+         display: block;
+         margin-bottom: 10px;
+         background-color: yellow;
+      }
+
+      input[type=button] {
+         width: 120px;
+         margin-left: 35px;
+         display: block;
+      }
+
+6> Besides element selector we can also use attribute selector or using class
+    selector: '[app-servers]'
+    <div app-servers></div>
+    and
+    selector: '.app-servers',
+    <div class="app-servers"></div>
+
+    But its a good sense to use element selector
+
 <------------------------------------------------------------------------------------------
