@@ -72,6 +72,6 @@ DAY 2---------------------------------------------------------------------------
     selector: '.app-servers',
     <div class="app-servers"></div>
 
-    But its a good sense to use element selector
+    But its a good sense to use element selector.
 
 <------------------------------------------------------------------------------------------

@@ -1,0 +1,23 @@
+Day 3 ------------------------------------------------------------------------------------------------------->
+
+1> Basics of databinding
+    i> ts -> html = interpolation(string interpolation) {{}} , property binding [property]="data"
+    ii> html -> ts = event binding (event)="expression"
+    iii> html -> <- ts = two way binding [(ngModel)]="data"
+
+2> String interpolation works for any typescript expression which yields string or converted to a string
+   at the end.
+
+3> property binding
+    <button [disabled]="!isAllowedServer">Add server</button> // in html file
+    isAllowedServer: boolean = false; // in ts file
+
+4> Event binding
+    <button (click)="onCreateServer()">Add server</button>  // in html file
+    onCreateServer(){ // in ts file
+        this.serverCreationStats = 'Server is created !';
+    }
+
+    video till 30
+
+<------------------------------------------------------------------------------------------------------------- 

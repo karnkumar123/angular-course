@@ -7,4 +7,7 @@ import { Component } from "@angular/core";
 })
 export class ServerComponent{
     serverTitle: string = "I am server component";
+    serverId: number = 10;
+    serverStatus: string = 'offline';
+    isServerAvailable: boolean = false;
 }
