@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 
 @Component({
     selector: 'app-server',
@@ -6,8 +6,12 @@ import { Component } from "@angular/core";
     styleUrls: ['./server.component.css']
 })
 export class ServerComponent{
-    serverTitle: string = "I am server component";
-    serverId: number = 10;
-    serverStatus: string = 'offline';
-    isServerAvailable: boolean = false;
+    isShow = false;
+    secretMsg = "Secret password = tune";
+    timeStampArray: any[] = [];
+    onClickBtn(){
+        this.isShow = !this.isShow;
+        this.timeStampArray.push(new Date().toLocaleTimeString())
+    }
+
 }

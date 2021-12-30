@@ -17,7 +17,73 @@ Day 3 --------------------------------------------------------------------------
     onCreateServer(){ // in ts file
         this.serverCreationStats = 'Server is created !';
     }
+5> $event is special reserve variable generally we use in html to get the value
+   of the event by user.
 
+   <input (input)="onInputServerName($event)">  // in html file
+   onInputServerName(event: Event){ // in ts file
+        this.enteredServerName = (<HTMLInputElement>(event.target)).value;
+   }
+
+6> For achieving the above scenaraio, we may use two-way binding also.
+   For using this, we need FormsModule to be imported in respective module.ts file.
+
+7> Directives are the instructions in the DOM. We have directives with template i.e. Component.
+   Also we have some directives without template i.e attribute and structural.
+   Components are special types of directives.Whenever we put selector of any component
+   it means we are giving instructions to the DOM to place the component at that place
+   with its logic. 
+
+8> We have built-in and custom directives.
+
+9> Structural directive starts with *. This directive change  the structure of DOM
+   like adding or removing or updating the elements of the DOM.
+
+10> *ngIf="boolean value or any expression which returns boolean value"
+    example :- 
+    <p *ngIf="isServerAvailable"> Server is available </p> // in ts file
+    isServerAvailable = true or false // in ts file
+
+10> 11> <p #myPara>I am paragraph</p>
+    Here myPara is local reference of p in the html.
+    Using this reference we can use anywhere in the template or we can
+    also use in ts file using viewchild decorator.
+
+11> We can also use else with *ngIf.
+    <p *ngIf="isServerAvailable; else noServer">Server is available</p>
+    <ng-template #noServer>
+        <p>I am not server</p>
+    </ng-template>
+
+12> Unlike structural directives, attribute directive don't add or remove elements.
+    Instead they only chnage the elements they were placed on.
+
+13> Anything which is built-in starts with ng.
+
+14> attribute directive ngStyle dynamically changes the appearance/css styles.
+
+15> ngStyle accepts an objects
+    <div [ngStyle]="{backgroundColor: status==='online'?'green':'red'}"> // in html file
+        I am using ngStyle
+    </div>
+
+16> ngClass dynamically add/remove the class.
+    ngclass accepts an objects where key is the object and value is the condition which yields true or false.
+    <div [ngClass]="{online: status==='online', offline: status==='offline'}"> // in html file
+        I am using ngClass
+    </div>
+    .online{  // in css file
+        background-color:green;
+    }
+    .offline{
+        background-color:red;
+    }
+
+17> *ngFor is another structural directive we use for looping
+    <div *ngFor="let player of team">{{player}}</div> // in html file
+    players = ['a','b','c','d']; // in ts file
+
+18> 
     video till 30
 
 <------------------------------------------------------------------------------------------------------------- 

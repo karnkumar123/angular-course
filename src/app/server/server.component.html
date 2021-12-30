@@ -1,5 +1,11 @@
-<p>{{serverTitle}}</p>
-<h4>Details of server </h4>
-server id => {{serverId}} <br>
-serverStatus => {{serverStatus}} <br>
-isServerAvailable => {{isServerAvailable}}
+<h4>Assignment</h4>
+<button class="btn btn-primary" (click)="onClickBtn()">Display details</button>
+<span *ngIf="isShow">{{secretMsg}}</span>
+<div *ngFor="let time of timeStampArray; let i=index">
+    <div 
+        [ngStyle]="{backgroundColor:i>=4?'blue':'none', color:i>=4?'white':'none'}">
+        {{time}}
+    </div>
+</div>
+
+<hr>

@@ -4,3 +4,9 @@ p{
     font-size: larger;
     font-family: cursive;
 }
+.online{
+    background-color:green;
+}
+.offline{
+    background-color:red;
+}

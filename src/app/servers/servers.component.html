@@ -1,4 +1,3 @@
-<app-server></app-server>
 <app-server></app-server> <br>
 <button 
     class="btn btn-primary" 
@@ -6,4 +5,11 @@
     (click)="onCreateServer()">
     Add server
 </button>
-{{serverCreationStats}}
+{{serverCreationStats}} <hr>
+<input 
+    type="text" 
+    placeholder="enter server name"
+    [(ngModel)]="enteredServerName"> <br>
+
+{{enteredServerName}}
+
