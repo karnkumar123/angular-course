@@ -1,0 +1,33 @@
+<div class="container" style="margin: 10px">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="col-sm-6">
+                <button 
+                    class="btn btn-primary form-control"
+                    (click)="startEvent()">
+                    Start
+                </button>
+            </div>
+            <div class="col-sm-6">
+                <button 
+                    class="btn btn-primary form-control"
+                    (click)="stopEvent()">
+                    Stop
+                </button>
+            </div>
+        </div>
+    </div> <hr>
+    <div class="col-sm-6">
+        <app-even *ngFor="let even of evenArray">
+            <div style="background-color: cornflowerblue;">
+                Even - {{even}}
+            </div>
+        </app-even>
+    </div>
+    <div class="col-sm-6">
+        <app-odd 
+            *ngFor="let odd of oddArray"
+            [oddNumber]="odd">
+        </app-odd>
+    </div>
+</div>
