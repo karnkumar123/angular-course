@@ -1,0 +1,19 @@
+<input 
+    #serverName
+    type="text" 
+    id="name" 
+    placeholder="enter server name"><br>
+    
+<input 
+    #serverContent
+    type="text" 
+    id="content" 
+    placeholder="enter server content"><br>
+
+<button 
+    id="addServer" 
+    type="button" 
+    class="btn btn-primary" 
+    (click)="addServer(serverName)">
+    Add Server
+</button>

@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <app-cockpit 
+                (srvElements)="serverElements=$event">
+            </app-cockpit>
+        </div>
+    </div> <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <app-server-element 
+                *ngFor="let server of serverElements"
+                [element]="server">
+            </app-server-element>
+        </div>
+    </div>
+</div>
+<app-ng-content>
+    <div #ulElement>
+        <ul>
+            <li *ngFor="let student of students">
+                {{student}}
+            </li>
+        </ul>
+    </div>
+</app-ng-content>

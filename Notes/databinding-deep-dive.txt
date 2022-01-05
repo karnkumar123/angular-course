@@ -1,0 +1,148 @@
+1> Custom attribute binding
+   -> We can use custom property binding on the component selector to communicate with other components.
+   <app-server-element 
+                *ngFor="let server of serverElements"
+                [element]="server">
+    </app-server-element>
+
+    Here [element] is the custom property binding.It means we are sending the value of server
+    from this component(here root component) to the app-server component.
+    Now in the app-server we have this piece of code to accept the value of server.
+
+     @Input('element') element: Server = {name: '', content: ''};
+
+     @Input() decorator is used to send data from parent component to child component.
+
+     Here ('element') is the alias that we can use in the parent component . Suppose 
+      @Input('elementTo Send') element: Server = {name: '', content: ''}; then the selector in parent component would be
+       <app-server-element 
+                *ngFor="let server of serverElements"
+                [elementToSend]="server">
+    </app-server-element>
+
+2> Custom event binding
+   -> We can use custom property binding on the component selector to communicate with other components.
+   <app-cockpit 
+                (srvElements)="serverElements=$event">
+    </app-cockpit>
+
+    Here (srvElements) is the custom event binding.It means we are sending the value of $event
+    from child component(here app-cockpit component) to the parent component.
+    Now in the app-cockpit we have this piece of code to accept the value of server.
+
+     @Output() decorator is used to send data from child component to parent component.
+
+     @Output() srvElements = new EventEmitter<Server[]>();
+     this.srvElements.emit(this.serverElements);
+
+     Here also we can use alias for output like input but I haven't used here. 
+
+3> View Encapsulation
+   -> Angular enforces the style encapsulation
+   -> View encapsulation defines whether the template and styles defined within the component 
+      can affect the whole application or vice versa. Angular provides three encapsulation strategies:
+
+       -> Emulated (default) - styles from main HTML propagate to the component. 
+                               Styles defined in this component's @Component decorator are scoped to this component only.
+
+       -> ShadowDom - styles from main HTML do not propagate to the component. 
+                      Styles defined in this component's @Component decorator are scoped to this component only.
+                      This is not supported by all browsers.
+
+       ->None - styles from the component propagate back to the main HTML and 
+                therefore are visible to all components on the page. 
+                Be careful with apps that have None and Native components in the application. 
+                All components with None encapsulation will have their styles duplicated in all components 
+                with Native encapsulation.
+
+4> we can use local references to any HTML element in the html file of component.
+   <input #serverName> // in html file
+   <button (click)="addServer(serverName)">Add Server</button>
+
+   addServer(serverName: HTMLInputElement): void{ // in ts file
+     this.serverElements.push(new Server(serverName.value, serverContent.value))
+     this.srvElements.emit(this.serverElements);
+  }
+
+5> We can also access the DOM elements through @viewChild decorator in respective ts file.
+   While uisng local reference, we can send reference only through event binding.
+   <input #serverContent> // in html file
+   @ViewChild('serverContent') serverContent: ElementRef; // in ts file
+    let serverContent = this.serverContent.nativeElement.value;
+
+6> What is ngContent?
+   The ng-content tag is used for content projection. 
+   It is basically a placeholder to hold the dynamic content until it is parsed. 
+   Once the template is parsed, Angular replaces the tag with content.
+   e.g ->
+   In root component, we have one app-ng-content component
+   <app-ng-content>
+      <div>
+         <ul>
+               <li *ngFor="let student of students">
+                  {{student}}
+               </li>
+         </ul>
+      </div>
+   </app-ng-content>
+   As we know, on the run time,angular replace the component selector, we can't see whataever written
+   between the opening and closing tag of component selector.
+   Here we have one array students in the parent component.
+
+   in app-ng-content.html file
+   <ng-content></ng-content>
+
+   This ng-content is the placeholder where the whole content written inside the app-ng-content tag in the parent
+   component is injected here.
+   In the way we can send the data from parent component from child component.
+   So We got one more option apart from @Input() decorator.
+
+   <ng-content></ng-content> is a directive.
+
+7> Whenever angular sees the selector of any component , at that time angular creates that component.
+
+8> Lifecycle hooks-:
+   -> ngOnChanges - this is the first lifcycle hook which is being called. It is called multiple times when a 
+                    bound input property changes.
+
+   -> ngOnInit - called once the component is initialized
+
+   -> ngDoCheck - called during every change detection run
+
+   -> ngAfterContentInit- called after ng-content has been projected into view
+
+   -> ngAfterContentChecked - called every time the projected content has been checked(changed)
+
+   -> ngAfterViewInit - called after the component's view (and child views) has beed initilaized (rendered)
+
+   -> ngAfterViewChecked - called every time the view(and child views) has been checked
+   
+   -> ngOnDestroy - called once the component is about to be destroyed
+
+9> ngOnChanges is the only hook which accepts a parameter
+   ngOnChanges(changes: SimpleChanges){
+      // changes is a object which has currentValue: string, PreviousValue: string, firstChange: boolean
+   }
+
+10> We shouldn't manipulate the DOM in ngOnInit. We should do in ngAfterViewInit .
+
+11> If we add local reference here ulElement
+
+   <app-ng-content>
+      <div #ulElement>
+         <ul>
+               <li *ngFor="let student of students">
+                  {{student}}
+               </li>
+         </ul>
+      </div>
+   </app-ng-content>
+
+   So in ng-content component, we have to use @contentChild. We can only use after ngAfterContentInit hook.
+   
+   @ContentChild('ulElement') ulElement: ElementRef;
+    ngAfterContentInit(): void {
+    console.log('In aftercontentinit ',this.ulElement.nativeElement);
+  }
+
+video till 73
