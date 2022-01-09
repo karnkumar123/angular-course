@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { style } from '@angular/animations';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-game-control',
@@ -6,11 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game-control.component.css']
 })
 export class GameControlComponent implements OnInit {
+  @ViewChild('normalParagraph') normalParagraph: ElementRef;
   counter: number = 0;
   startEventRef: any;
   evenArray: number[] = [];
   oddArray: number[] = [];
   constructor() { }
+  value = 10;
 
   ngOnInit(): void {
   }
@@ -27,6 +30,14 @@ export class GameControlComponent implements OnInit {
   }
   stopEvent(){
     clearInterval(this.startEventRef);
+  }
+  onMouseOver(event: MouseEvent){
+    this.normalParagraph.nativeElement.style.backgroundColor = "yellow";
+    
+  }
+
+  onMouseOut(event: MouseEvent){
+    this.normalParagraph.nativeElement.style.backgroundColor = 'white';
   }
 
 }
