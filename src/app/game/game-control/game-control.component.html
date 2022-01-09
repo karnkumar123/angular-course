@@ -30,4 +30,81 @@
             [oddNumber]="odd">
         </app-odd>
     </div>
+</div> 
+<hr>
+<h2>Concepts of Directive</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <p appHighlightDirective>I am custom hightlight</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p appBetterDirective>I am better custom directive</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <p 
+                #normalParagraph 
+                id="myParagraph"
+                (mouseover)="onMouseOver($event)" 
+                (mouseout)="onMouseOut($event)">
+                I am normal hover
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <p appSimpeHostListener>
+                I am simple Host Listener
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <p 
+                appSimpeHostListener
+                [defaultColor]="'transparent'"
+                [hoveringColor]="'magenta'">
+                I am dynamic Host Listener, and hostbinding
+            </p>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="true">
+    <h2>I am true sentence</h2>
+</div>
+
+<ng-template [ngIf]="false">
+    <div>
+        <h2>I am true sentence</h2>
+    </div>
+</ng-template>
+
+<hr>
+<div>
+    <span *ngFor="let a of ['Ram', 'Shyam']">
+        {{a}}
+    </span>
+</div>
+
+<!-- our own structural directive -->
+<div *appNgIfKaUlta="false">
+   <span>ngIf ka ulta</span>
+</div>
+
+<!-- switch case Concepts -->
+
+<div [ngSwitch]="value">
+    <div *ngSwitchCase="5">5</div>
+    <div *ngSwitchCase="10">10</div>
+    <div *ngSwitchCase="15">15</div>
+    <div *ngSwitchCase="20">20</div>
+    <div *ngSwitchDefault>Nothing</div>
 </div>
