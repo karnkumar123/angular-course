@@ -1,0 +1,56 @@
+1> Suppose we have one service class, typically a simple typescript class
+
+    export class LoggerService(){
+        log(msg: string){
+            console.log(msg);
+        }
+    }
+
+    And in angular component, we can inject this class like this
+    import {LoggerService} from './log.service.ts';
+
+    const log1 = new LoggerService();
+    log1.log();
+
+    There is no doubt it will work, but angular provide a better way to inject and use services.
+
+2> Dependency injectors injects the instance of class automatically into the components.
+
+3> If we need any services to inject, we give the name in component's constructors, why ?
+    Whenever angular framework instantiate the component after seeing the component's selector.
+    As we know we create the instance of any class based on the parameters in constructor.
+    So we give the Dependency in constructor so that angular could create the instance of that service also 
+    while creating the components .
+    Now angular knows what to inject, but doesn't know how to inject
+
+    @component({
+        ...
+        providers: [LoggerService]
+    })
+    now we can access LoggerService.
+
+4> Infact, Dependency injector is a hierarchical injector.
+
+5> If we provide services in one component, then angular knows how to create and instantiate that service in that component and 
+   its all child component.All the components receive the same instance of this services.
+
+6> If we provide service in Appmodule, then it will be application wise.
+
+7> if we provide in AppComponent, angular will create the same intance for AppComponent and all its child component
+   and child of child and so on.
+
+8> The highest possible location to provide the services in AppModule in providers section in @NgModule({}).
+
+9> If we inject service to something , then this something shoud attach to metadeta. We know we attach metadata
+   through decorator. Like in component, we have @Component, @Directive in directive.
+
+   So to inject service in service , we need some metadata
+   There is specific decorator @Injectable, we can use in any services to injects another services.
+
+10> We add @Injectable in the service which uses another services, not add to the services which is being injected.
+
+11> In modern angular, we can write @Injectable in all services irrespective of whether it injects any services or not.
+    but this is the reason we write @Injectable in services.
+
+12> If two components  have dont have any relation and has individual providers, then whatever the services are written 
+    in providers have different instance for both the component.
