@@ -1,0 +1,6 @@
+<table>
+    <tr *ngFor="let user of activeUsers">
+        <td>{{user.name}}</td>
+        <td><a style="cursor: pointer;" (click)="makeInactive(user.id)">{{user.status}}</a></td>
+    </tr>
+</table>
