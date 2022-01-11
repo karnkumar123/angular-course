@@ -54,3 +54,19 @@
 
 12> If two components  have dont have any relation and has individual providers, then whatever the services are written 
     in providers have different instance for both the component.
+
+13> Communication between two services
+    In service class,
+    We define one eventEmitter variable
+    updateAnotherComponent = new EventEmitter<boolean>(false);
+
+    From one component
+     this._dataService.updateAnotherComponent.emit(true);
+
+    Subscribe in another component
+     this._dataService.updateAnotherComponent.subscribe((status) => {
+      if(status){
+        this.inactiveUsers = this._dataService.getInactiveUsers();
+      }
+    })
+
