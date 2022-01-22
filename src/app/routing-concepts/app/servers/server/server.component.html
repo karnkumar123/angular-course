@@ -1,0 +1,10 @@
+Server Id : {{server?.id}} <br>
+Server Name: {{server?.name}}
+
+<a 
+    [routerLink]="['/servers', server?.id, 'edit']"
+    [queryParams]="{id: server?.id, name: server?.name, allowEdit: server?.id === 2 ? '0': '1'}"
+    fragment="loading">Edit
+</a> &nbsp; &nbsp;
+
+<button (click)="goToEdit()" class="btn btn-primary">Edit</button>
