@@ -1,0 +1,14 @@
+<button 
+    (click)="onActivate()"
+    class="btn btn-primary">
+    Activate
+</button>
+
+<hr>
+    <p 
+        *ngIf="isActivated"
+        style="color: green; font-family: fantasy;">
+        Activated
+    </p>
+<hr>
+
