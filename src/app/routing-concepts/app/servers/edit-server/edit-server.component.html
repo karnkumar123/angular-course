@@ -1,0 +1,16 @@
+<div *ngIf="isAllowed; else notAllowed">
+    <h6>You are allowed to edit</h6>
+    <div style="background-color: ivory; width: 400px;">
+        Server Id : {{serverId}} <br>
+        Server Name: <input type="text" [(ngModel)]="servername" [value]="servername"> <br>
+        <button  
+            class="btn btn-default"
+            (click)="saveServer()">
+            Save
+        </button>
+    </div>
+</div>
+
+<ng-template #notAllowed>
+    <h2>You are not allowed to edit !!</h2>
+</ng-template>

@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="col-sm-4">
+                <div *ngFor="let usr of users" style="margin-left: 20px;">
+                    <a [routerLink]="['/users', usr.id, usr.name]">{{usr.name}}</a>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+<button class="btn btn-success" (click)="loadServersOnDemand()">
+    Load Servers
+</button> <br>
+<button class="btn btn-success" (click)="loadServerEditMode(1)">
+    Load Servers edit mode
+</button>

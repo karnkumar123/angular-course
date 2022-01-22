@@ -7,11 +7,12 @@ import { RecipeBookModule} from '../src/app/recipe-book/recipe-book.module'
 import { AddServerAppModule } from './app/add-server-app/add-server-app.module';
 import { GameModule } from './app/game/game.module';
 import { ActiveInactiveUserModule } from './app/active-inactive-user-app/active-inactive-user/active-inactive-user.module';
+import { RoutingConceptsModule } from './app/routing-concepts/routing-concepts.module';
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(ActiveInactiveUserModule)
-  .then(() => console.log('Active and Inactive user app is bootstrap first'))
+platformBrowserDynamic().bootstrapModule(RoutingConceptsModule)
+  .then(() => console.log('Routing Concepts Module app is bootstrap first'))
   .catch(err => console.error(err));
