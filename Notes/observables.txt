@@ -1,0 +1,105 @@
+1> Observables are simply various data sources (user input , http requests, events etc);
+
+2> Observables created by angular itself, is also unsubscribe by angular itself only.
+
+3> import {Observables, interval} from 'rxjs';
+
+    let obser = interval(1000).subscribe(count => console.log(count));
+
+    ngDestroy(){
+        this.obser.unsubscribe();
+    }
+
+4> Custom Observables
+
+    import { Observable, Subscription } from 'rxjs';
+    ngOnInit(): void {
+        let count: number = 0;
+        const myObservable = Observable.create((observer) => {
+        setInterval(() => {
+            observer.next(count);
+            count++;
+            if(count === 3){
+                observer.error('Error occured') or observer.next(throw new Error(error));
+            }
+            if(count === 10){
+            observer.complete();
+            }
+        }, 1000)
+
+        })
+        this.customIntervalObservable = myObservable.subscribe(data => console.log(data), error => console.log(error), () => console.log('completes'))
+    }
+
+5> throwing error cancels the observers
+
+6> Operators are the magic features of Rxjs. We have ton of operators. We use pipe to use operators.
+   
+7>  this.customIntervalObservable = myObservable.pipe(map((value: number) => {
+      return `Round ${value+1}`;
+    })).subscribe(
+      (data:number) => console.log(data), 
+      (error: Error) => console.log(error), 
+      () => console.log('completes'))
+
+8> Use multiple operators
+
+  this.customIntervalObservable = myObservable.pipe(filter((value: number) => {
+      return value>5
+    }),map((value: number) => {
+      return `Round ${value+1}`;
+    })).subscribe(
+      (data:number) => console.log(data), 
+      (error: Error) => console.log(error), 
+      () => console.log('completes'))
+
+9> Subjects are also observables. In observables, we have to do .next() from inside.So it is passive. 
+   We should use observables for passive work like http request etc
+
+   On the other hand Subjects are active, we should use this when we need very actively in our apps.
+
+   In html
+    <button 
+        (click)="onActivate()"
+        class="btn btn-primary">
+        Activate
+    </button>
+
+    <hr>
+        <p 
+            *ngIf="isActivated"
+            style="color: green; font-family: fantasy;">
+            Activated
+        </p>
+    <hr> 
+
+    In ts file
+
+    buttonClickEventEmitter = new EventEmitter<boolean>();
+
+    onActivate(){
+        this.buttonClickEventEmitter.emit(true)
+    }
+
+    ngOnInit(): void {
+        this.buttonClickEventEmitter.subscribe((data)=> {
+            this.isActivated = data;
+        })
+    }
+
+    Better to use subject
+
+    import { Subject} from 'rxjs'
+
+     this.buttonClickSubject.next(true);
+
+      this.buttonClickSubject.subscribe((data) => {
+        this.isActivated = data;
+      })
+
+
+      Subject and BehaviorSubject are same, only difference BehaviorSubject holds default value
+       buttonClickSubject = new BehaviorSubject<boolean>(false);
+
+
+10> Generally we create subject in some service file and used for intercomponent communication.
