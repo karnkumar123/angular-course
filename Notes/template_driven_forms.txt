@@ -1,0 +1,95 @@
+1> Two approaches
+    -> Template driven form - Angular infers the form object from the DOM
+    -> Reactive - Form is created programatically and synchronized with the DOM
+
+2> We can also take the referenc of form using @Viewcild
+
+    In html
+     <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)" >  changes into
+     <form #myForm="ngForm" (ngSubmit)="onSubmit()" >
+
+    In ts
+     @ViewChild('myForm') myForm: NgForm;
+
+        onSubmit(form: NgForm){
+            console.log(form.value);
+        }  changes into
+
+
+     onSubmit(){
+        console.log(this.myForm.value);
+    }
+
+3> <input ngModel required>
+ <small *ngIf="myForm?.controls?.password?.status=== 'INVALID' && myForm?.controls?.password?.touched">
+
+ We can also use by below
+ <input ngModel required #password="ngModel">
+ <small *ngIf="!password.valid && password.touched">
+
+4> If we want to take any default values from ts to ngModel formControl
+
+    <select name="country" id="countryID" class="form-control" ngModel required>
+        <option value="ind">India</option>
+        <option value="us">USA</option>
+        <option value="others">Others</option>
+    </select>
+
+    chnages to 
+    <select name="country" id="countryID" class="form-control" [ngModel]="defaultCountryString" required>
+        <option value="ind">India</option>
+        <option value="us">USA</option>
+        <option value="others">Others</option>
+    </select>
+
+    in ts file
+    defaultlCountryString: string = "others";   // the value should be value of mentioned options inside select tag
+
+5> We can still use two way binding with Template driven form
+
+    <textarea name="desc" rows="3" class="form-control" [(ngModel)]="mydesc"></textarea>
+
+    in ts file 
+    mydesc: string = '';
+
+6> We can use all 4 forms of ngModel
+    -> <input ngModel> // register for formcontrol only
+    -> <input [ngModel]="myName"> // for one way binding from ts to html
+    -> <input [(ngModel)]="myName"> // two-way binding
+    -> <input #myName="ngModel"> // from html to ts
+       <small *ngIf="!myName.valid && myName.touched">
+
+7> Form Group
+    We will group all related fields like address, city state country pincode
+    <div class="address" ngModelGroup="myAddress" #myAddress="ngModelGroup">  // so the special js object named as myAddress
+     ngModelGroup="myAddress" // so the special js object named as myAddress 
+     #myAddress="ngModelGroup"  // making Template reference so that we can use in html or can transfer to ts the JS object
+
+8> setValue value set the whole form and patchvalue set the part of the form
+
+    setWholeForm(){
+        this.myForm.setValue({
+        username: 'SuperUser@gmail.com',
+        password: 'superuser',
+        sex: 'male',
+        desc: 'nothing to say',
+        myAddress: {
+            city: 'kolkata',
+            state: 'bihar',
+            pincode: '701010',
+            country: 'ind'
+        }
+        })
+    }
+
+  setUsername(){
+    this.myForm.form.patchValue({
+      username:'admin@gmail.com'
+    })
+  }
+
+9> this.myForm.reset() // to reset the form or we can also pass the object in this method to which value we want to set after reset
+
+
+
+    
