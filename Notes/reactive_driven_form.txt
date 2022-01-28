@@ -1,0 +1,172 @@
+1> Forms are created programatically in ts file and all the validations we do in ts file only.
+
+2> Need to import ReactiveFormsModule in module.ts file
+
+3> in ts file, we generate one form using formGroup
+    signUpForm: FormGroup;
+
+4> we generate formcontrol inside ngonit so that it will create before rendering
+    ngOnInit(): void {
+        this.signUpForm = new FormGroup({
+        'username': new FormControl(null),
+        'password': new FormControl(null),
+        'gender': new FormControl('female')
+        })
+    }
+
+5> Sync form with html
+    <form [formGroup]="signUpForm">
+    <input formControlName="username">
+
+
+6> Submit the form
+     <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+
+    // in ts file
+     onSubmit(){
+        console.log(this.signUpForm.value)
+    }
+
+7> Adding validations
+   We can add alone or more than one in array
+   this.signUpForm = new FormGroup({
+      'username': new FormControl(null, Validators.required),
+      'password': new FormControl(null, [Validators.required, Validators.minLength(5)]),
+      'gender': new FormControl('female', Validators.required)
+    })
+
+8> Getting access to controls
+    Through .get(formControlName) // it will select the controls and return
+
+    <small style="font-family: cursive; color: red;"
+            *ngIf="!signUpForm.get('username').valid && signUpForm.get('username').touched">
+            Please give correct username
+    </small>
+
+    signUpForm.controls.username.valid // we can use this also but it long cut and .get(formControlName) is shortcut and easy
+
+9> Form group
+
+    -> Formgroup inside formGroup
+
+        this.signUpForm = new FormGroup({
+            'userData': new FormGroup({
+                'username': new FormControl(null, Validators.required),
+                'password': new FormControl(null, [Validators.required, Validators.minLength(5)]),
+            }),
+            'gender': new FormControl('female', Validators.required)
+        })
+
+    -> Wrap inside formGroupName directive
+
+        <div formGroupName="userData">
+            <div class="form-group">
+                <input formControlName="username">
+                <small 
+                    *ngIf="!signUpForm.get('userData.username').valid && signUpForm.get('userData.username').touched">Please give correct username
+                </small>
+            </div>
+            <div class="form-group">
+                <input formControlName="password">
+            </div>
+        </div>
+
+10>  FormArray
+    In ts file
+
+    this.signUpForm = new FormGroup({
+      'hobbies': new FormArray([])
+    })
+
+    addHobby(){
+        const newControl = new FormControl(null, Validators.required);
+        (<FormArray>this.signUpForm.get('hobbies')).push(newControl);
+    }
+
+    in html file
+
+    <button type="button" class="btn btn-default btn-block" (click)="addHobby()">Add Hobby</button>
+        <div formArrayName="hobbies">
+            <div class="form-group" *ngFor="let hobby of signUpForm?.get('hobbies').controls; let i=index">
+                <input type="text" class="form-control" placeholder="Add hobby here..." [formControlName]="i">
+            </div>
+        </div>
+    
+
+11> Creating custom validators
+    notAllowedNames: string[] = ['admin@gmail.com', 'user@gmail.com'];
+
+    because notAcceptedAdminAsUsername method is not calling by instance of this class, infact calling by angular
+    'username': new FormControl(null, [Validators.required, this.notAcceptedAdminAsUsername.bind(this)]),  // in formGroup
+
+     notAcceptedAdminAsUsername(control: FormControl): {[errorCode: string]: true}{
+        let controlValue: string = control.value;
+        if(this.notAllowedNames.indexOf(controlValue) > -1){
+            return {'adminNameNotAllowed': true}
+        }
+        return null
+    }
+
+12> Using error errorCode (shift + tab for back)
+    <small 
+        style="font-family: cursive; color: red;"
+        *ngIf="!signUpForm.get('userData.username').valid && signUpForm.get('userData.username').touched">
+        <span *ngIf="signUpForm.get('userData.username').errors['required']">
+            This field cannot be empty.
+        </span>
+        <span *ngIf="signUpForm.get('userData.username').errors['adminNameNotAllowed']">
+            Admin Name is not allowed here.
+        </span>
+    </small>
+
+13> Custom async validators
+    The third argument is asyncValidator
+     'password': new FormControl(null, [Validators.required, Validators.minLength(5)], this.checkAsyncPasswordLength),
+
+     checkAsyncPasswordLength(control: FormControl): Promise<any> | Observable<any>{
+        let controlValue: string = control.value;
+        let myPromise = new Promise<any>((resolve, reject) => {
+        setTimeout(() => {
+            if(controlValue.length < 5){
+            resolve({'passwordNotCorrect': true})
+            }else{
+            resolve(null)
+            }
+        }, 3000)
+        })
+        return myPromise;
+    }
+
+14> Status or value changes
+    Whenever any value or status changes, Generally we keep this inside ngOnInit
+
+     // valuechanges
+    this.signUpForm.valueChanges.subscribe(value => console.log(value))
+    this.signUpForm.get('gender').valueChanges.subscribe(value => console.log(value))
+    this.signUpForm.get('userData.username').valueChanges.subscribe(value => console.log(value));
+    this.signUpForm.get('userData').get('password').valueChanges.subscribe(value=> console.log(value));
+
+    //statuschanges
+    this.signUpForm.statusChanges.subscribe(value => console.log(value))
+    this.signUpForm.get('gender').statusChanges.subscribe(value => console.log(value))
+    this.signUpForm.get('userData.username').statusChanges.subscribe(value => console.log(value));
+    this.signUpForm.get('userData').get('password').statusChanges.subscribe(value=> console.log(value));
+
+15> Setting and patching value
+    // reset the form
+    this.signUpForm.reset({
+      'gender': 'male'
+    })
+
+    // setValue
+    onSetValue(){
+    
+    
+    //patch value
+    onPatchValue(){
+    this.signUpForm.patchValue({
+        'userData': {
+            'username': 'default@gmail.com'
+        }
+        })
+    }

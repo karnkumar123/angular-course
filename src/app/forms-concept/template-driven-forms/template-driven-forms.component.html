@@ -1,0 +1,149 @@
+<div class="container-fluid" style="margin-top: 20px;margin-left: 33%;">
+    <div class="row">
+        <div class="col-md-6">
+            <div id="formConcept">
+                <form #myForm="ngForm" (ngSubmit)="onSubmit()" >
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-md-6">
+                            <button 
+                                class="btn btn-block btn-primary"
+                                (click)="setWholeForm()">Set Whole Form</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button 
+                            class="btn btn-block btn-primary"
+                            (click)="setUsername()">Set Only Admin username</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input 
+                            type="email" 
+                            placeholder="enter email" 
+                            name="username" 
+                            class="form-control" 
+                            id="usernameId"
+                            ngModel
+                            required
+                            email>
+                            <small 
+                                *ngIf="myForm?.controls?.username?.status=== 'INVALID' && myForm?.controls?.username?.touched" 
+                                style="color: rgb(224, 31, 31);">
+                                Please provide correct email id.
+                            </small>
+                    </div>
+                    <div class="form-group">
+                        <input 
+                            type="password" 
+                            placeholder="enter password" 
+                            name="password" 
+                            class="form-control" 
+                            id="passwordId"
+                            ngModel
+                            required
+                            #password="ngModel">
+                            <small 
+                                *ngIf="!password.valid && password.touched" 
+                                style="color: rgb(224, 31, 31);">
+                                Please provide correct password.
+                            </small>
+                    </div>
+                    <div class="form-group">
+                        <div class="radio" *ngFor="let gender of genders">
+                            <label><input 
+                                type="radio" 
+                                name="sex" 
+                                [value]="gender" 
+                                ngModel
+                                required>{{gender | titlecase}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="desc">Enter your description</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <textarea 
+                                name="desc" 
+                                rows="3"
+                                class="form-control"
+                                [(ngModel)]="mydesc">
+                            </textarea>
+                            </div>
+                            <div class="col-md-6">
+                                {{mydesc}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="address" ngModelGroup="myAddress" #myAddress="ngModelGroup">
+                        <div class="form-group">
+                            <input 
+                                class="form-control"
+                                type="text" 
+                                name="city" 
+                                id="cityId" 
+                                placeholder="enter your city name"
+                                ngModel
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <input 
+                                class="form-control"
+                                type="text" 
+                                name="state" 
+                                id="stateId" 
+                                placeholder="enter your state name"
+                                ngModel
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <input 
+                                class="form-control"
+                                type="text" 
+                                name="pincode" 
+                                id="pincodeId" 
+                                placeholder="enter your city pincode"
+                                ngModel
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Select Country</label>
+                            <select 
+                                name="country" 
+                                id="countryID" 
+                                class="form-control" 
+                                [ngModel]="defaultlCountryString"
+                                required>
+                                    <option value="ind">India</option>
+                                    <option value="us">USA</option>
+                                    <option value="others">--Others--</option>
+                            </select>
+                            <small 
+                                    *ngIf="myForm?.controls?.country?.status=== 'INVALID' && myForm?.controls?.country?.touched" 
+                                    style="color: rgb(224, 31, 31);">
+                                    Please provide correct country.
+                            </small>
+                        </div>
+                        <small 
+                            *ngIf="!myAddress.valid && myAddress.touched"
+                            style="color: red;">Please correct your address</small>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button 
+                                class="btn btn-success btn-block" 
+                                type="submit"
+                                [disabled]="!myForm.valid">Submit</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button 
+                                class="btn btn-danger btn-block" 
+                                type="reset"
+                                (click)="onResetForm()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
