@@ -8,11 +8,12 @@ import { AddServerAppModule } from './app/add-server-app/add-server-app.module';
 import { GameModule } from './app/game/game.module';
 import { ActiveInactiveUserModule } from './app/active-inactive-user-app/active-inactive-user/active-inactive-user.module';
 import { RoutingConceptsModule } from './app/routing-concepts/routing-concepts.module';
+import { FormsConceptModule } from './app/forms-concept/forms-concept.module';
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(RoutingConceptsModule)
-  .then(() => console.log('Routing Concepts Module app is bootstrap first'))
+platformBrowserDynamic().bootstrapModule(FormsConceptModule)
+  .then(() => console.log('Forms Module Concepts Module app is bootstrap first'))
   .catch(err => console.error(err));
