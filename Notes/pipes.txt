@@ -1,0 +1,74 @@
+1> Transforms output in the template (in html).
+
+2> We transforms on the fly not directly in the ts file.
+
+3> Some built-in pipe like uppercase and date
+    {{username | uppercase}}
+    {{mydate | date}}
+
+4> we can give parameterized pipe using colon
+     {{mydate | date:'fullDate'}}
+
+5> Learn more pipes from angular.io/docs
+
+6> chaining multiple pipe
+     {{mydate | date:'fullDate' | uppercase}}
+     // pipe applies from left to right
+
+7> Create our own pipe
+    create shorten.pipe.ts manually or ng g p shorten
+
+        import { Pipe, PipeTransform } from "@angular/core";
+        @Pipe({
+            name: 'nameShorten'
+        })
+        export class ShortenPipe implements PipeTransform{
+            transform(value: string) {
+                if(value.length >= 10){
+                    return value.substring(0,9) + '...';
+                }else{
+                    return value
+                }
+            }
+        }
+
+    In html
+
+    <div *ngFor="let name of studentsName">
+        <p [title]="name">{{name | uppercase | nameShorten}}</p>
+    </div>
+
+    Register ShortenPipe in declartion array in module.ts file
+
+8> Pass parameter in custom pipe
+    <p [title]="name">{{name | uppercase | nameShorten:10}}</p>
+
+     transform(value: string, limit: number) {  // adding limit
+
+     If we want to send more parameter just add one more : and value like nameShorten:10: 'anyvalue'
+
+9> Filter pipe - see example
+
+10> Pipe only triggers only when input changes like 
+    let students of studentsName | filterByGender: filteredString  
+    // only trigger when filteredString chnages not studentsName because pipe is pure function
+
+    to trigger for value also, we have to make pipe a impure function
+
+    @Pipe({
+        name: 'filterByGender',
+        pure: false
+    })
+
+11> We can also use pipe async data
+
+    appStatus = new Promise((resolve, reject) => {   // or observables
+        setTimeout(() => resolve('stable'), 3000)
+    })
+
+    in html
+    <h2>App status {{appStatus | async}}</h2>
+
+
+
+    
