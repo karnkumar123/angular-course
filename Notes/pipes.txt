@@ -51,7 +51,7 @@
 
 10> Pipe only triggers only when input changes like 
     let students of studentsName | filterByGender: filteredString  
-    // only trigger when filteredString chnages not studentsName because pipe is pure function
+    // only trigger when filteredString changes not studentsName because pipe is pure function
 
     to trigger for value also, we have to make pipe a impure function
 
