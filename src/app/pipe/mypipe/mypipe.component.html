@@ -1,0 +1,21 @@
+<div class="container-fluid" style="margin-top: 20px;">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                    <input 
+                        class="form-control" 
+                        type="text" 
+                        placeholder="enter gender to search"
+                        [(ngModel)]="filteredString">
+            </div>
+            <button class="btn btn-primary" (click)="addMale()">Add Male</button> &nbsp; &nbsp;
+            <button class="btn btn-primary" (click)="addFemale()">Add Female</button> <br>
+            <h2>App status {{appStatus | async}}</h2>
+        </div>
+    </div>
+</div>
+<hr>
+<div *ngFor="let students of studentsName | sort | filterByGender: filteredString">
+    <p [title]="name">{{students.name | uppercase | nameShorten:10}}</p>  --
+    <p>{{students.gender}}</p>
+</div>
