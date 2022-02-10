@@ -2,7 +2,7 @@
     -> Template driven form - Angular infers the form object from the DOM
     -> Reactive - Form is created programatically and synchronized with the DOM
 
-2> We can also take the referenc of form using @Viewcild
+2> We can also take the reference of form using @Viewcild
 
     In html
      <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)" >  changes into

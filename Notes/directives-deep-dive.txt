@@ -1,4 +1,4 @@
-1> Attribut directive                      Structure directive
+1> Attribute directive                      Structure directive
   -> looks like the extension            -> It changes the DOM by changing the 
      of normal html attribute               ViewContainer.Like ngIf removes or add the
      with databinding or event              element from the DOM.

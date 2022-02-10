@@ -55,7 +55,7 @@
 12> If two components  have dont have any relation and has individual providers, then whatever the services are written 
     in providers have different instance for both the component.
 
-13> Communication between two services
+13> Communication between two components
     In service class,
     We define one eventEmitter variable
     updateAnotherComponent = new EventEmitter<boolean>(false);
