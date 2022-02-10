@@ -10,11 +10,12 @@ import { ActiveInactiveUserModule } from './app/active-inactive-user-app/active-
 import { RoutingConceptsModule } from './app/routing-concepts/routing-concepts.module';
 import { FormsConceptModule } from './app/forms-concept/forms-concept.module';
 import { PipeModule } from './app/pipe/pipe.module';
+import { HttpConceptModule } from './app/http-concept/http-concept.module';
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(PipeModule)
-  .then(() => console.log('Pipe Module Concepts is bootstrap first'))
+platformBrowserDynamic().bootstrapModule(HttpConceptModule)
+  .then(() => console.log('Http concept Module Concepts is bootstrap first'))
   .catch(err => console.error(err));

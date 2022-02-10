@@ -9,7 +9,7 @@ Day 1 --------------------------------------------------------------------------
 6> We write code in typescript.It has more features than vanilla javascript.
 7> The compilation process(TS ->JS) is automatically done by angular cli.
 8> We can install bootstrap for our app.
-   -> npm i --save bootstrap@lates
+   -> npm i --save bootstrap@latest
    -> add this "node_modules/bootstrap/dist/css/bootstrap.min.css" in angular.json file
 
     "styles": [

@@ -1,0 +1,175 @@
+1> Angular doesn't interact with Databases direclty because we may have DB credentials.
+   And anybody can inspect angular code in browser and can see the secured codes.
+
+2> So we have this one
+    Angular -> Server(backend) -> DB
+
+3> Anatomy of HTTP request
+    HTTP verb(method) -> get, post, put, patch, delete
+    Url(API endpoint) -> /reviews/1 ( domain/reviews/1 e.g https://findreview.com/review/1)
+    Headers(Metadata) -> {"Content-Type":"applicaton/json"} (it is not mandatory but we should add it.Browsers also add headers by default)
+    Body              -> We send some data in case of put, patch or post verb
+
+4> Here we are not going to create backend sevices and DB. For this we will use firebase realtime database.
+
+5> Steps (Firebase cedentials karnkumar0701@gmail.com Akira@786)
+    -> go to https://firebase.google.com/
+    -> click to Go to console
+    -> Add project
+    -> Continue -> create project
+    -> click realtime database
+    -> create database
+    -> start in test mode for time being
+    -> enable
+
+6> Import ReactiveFormsModule in module.ts file, and HttpClient in component from where we send the request.
+
+7> We can't make a request without a subscribe.Angular is very smart.
+
+8> Post request
+
+    constructor(private _httpClient: HttpClient) { }
+    
+    onSubmit(post: {title: string, content: string}){
+        let postURL: string = 'https://learn-angular-4d591-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json'
+        this._httpClient.post(postURL, post).subscribe((responseData) => {
+        console.log(responseData);
+        })
+    }
+9> Keep seeing the http-concept modules
+
+10> Headers always will be the last parameter of get, post, put, patch or delete. It is always an object.
+    import { HttpHeaders } from "@angular/common/http";
+
+    //inside method
+    let getHeader = {
+            headers: new HttpHeaders({
+                'Customer-Header': 'Hello'
+            })
+    }
+
+    this._httpClient.get<Post[]>(this.postsURL, getHeader);
+
+11> Adding query params
+
+    import { HttpParams } from "@angular/common/http";
+
+    let searchParam = new HttpParams();
+    searchParam = searchParam.append('id',1);
+    searchParam = searchParam.append('title','mytitle');
+    searchParam = searchParam.append('content','mycontent');  
+
+    let getHeader = {
+            headers: new HttpHeaders({'Customer-Header': 'Hello'}),
+            params: searchParam
+    }
+
+    this._httpClient.get<Post[]>(this.postsURL, getHeader)
+
+    the request url will become
+    https://learn-angular-4d591-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json?id=1&title=mytitle&content=mycontent
+
+    rather sending using HttpParams , we can also make the url like that
+    postsURL: string = 'https://learn-angular-4d591-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json';
+    postURL = `${this.postsURL}?id=${this.id}&name=${this.name}`;
+
+    But sending as HttpParams is very easy and clear way.
+
+12> whenever we subscribe, the HttpClient parses the data only responseData.body. We only get the body of response.
+    If we want to get the whole responseData with statuscode or statusText , then we have to change as below.
+
+    deleteAllPosts(){
+        return this._httpClient.delete(this.postsURL, {observe: 'response'});
+    }
+
+    the default value of observer is 'body'. It will return all HttpResponse.
+
+13>  RxJS tap() operator is used to intercept each emission on the source observable and runs 
+     a function but returns an output that is identical to the source observable as long as it doesn't find any error.
+
+      deleteAllPosts(){
+        return this._httpClient.delete(this.postsURL, {observe: 'events'})
+        .pipe(
+            tap((event) => {
+                if(event.type === HttpEventType.Sent){
+                    console.log(event.type, 'Request sent');
+                }else if(event.type === HttpEventType.Response){
+                    console.log(event.type, 'Response received')
+                }
+            })
+        );
+    }
+
+14> we can also set responseType  (defualt is json and thats we want 99 percent of the time)
+    return this._httpClient.post(this.postsURL, post, {
+            headers: new HttpHeaders({'verb': 'post', 'course': 'angular'}),
+            params: new HttpParams().set('id', true),
+            observe: 'response',
+            responseType: 'json'
+        });
+
+15> Interceptors
+    -> If we want to add some headers for all outgoing interceptors. We can simple add in all requests.
+       But it will create cumbersome. So we use interceptors and it will apply on all outgoing request.
+       Like authentication or authorization feature.
+       intercept works just before request leaves the app or just before response is subscribed .
+       So we must have some next handler which proceeds the request after modification or subscribe the 
+       response after some modification.
+
+       Steps to use Interceptors
+
+       auth-interceptors.service.ts file
+
+        import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+        import { Observable } from "rxjs";
+
+        export class AuthInterceptorService implements HttpInterceptor{
+            intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+                console.log('Request is on way...', req.method);
+                return next.handle(req);
+            }
+
+        }
+
+        in module.ts file
+
+        providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
+
+        // we may have multiple interceptors , so that it shouldn't override the existing we use multi true.
+
+
+16> We can also modify the request inside intercept method. req is immutable(read only property), we have to clone the object.
+
+    export class AuthInterceptorService implements HttpInterceptor{
+        intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+            const modifiedRequest = req.clone({
+                headers: req.headers.append('Auth', '123xyz'), 
+                params: req.params.append('name', 'karan')
+            })
+            return next.handle(modifiedRequest);
+        }
+
+    }
+
+17> We can also manipulate the response before subscribe
+
+     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        const modifiedRequest = req.clone({
+            headers: req.headers.append('Auth', '123xyz'), 
+            params: req.params.append('name', 'karan')
+        })
+        return next.handle(modifiedRequest).pipe(map((responseData) => {
+            if(req.method === 'GET'){
+                console.log('Response data recieved');
+            }
+            return responseData;
+        }))
+    }
+
+18 > We may use more than one interceptors.
+     The order is simply top to bottom. First Auth and then log in my case here.
+
+    providers: [
+        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
+        {provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptorService, multi: true}
+    ],
