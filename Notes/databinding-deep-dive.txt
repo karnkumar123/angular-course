@@ -6,7 +6,7 @@
     </app-server-element>
 
     Here [element] is the custom property binding.It means we are sending the value of server
-    from this component(here root component) to the app-server component.
+    from this component(here root component) to the app-server component(child component).
     Now in the app-server we have this piece of code to accept the value of server.
 
      @Input('element') element: Server = {name: '', content: ''};
@@ -14,7 +14,7 @@
      @Input() decorator is used to send data from parent component to child component.
 
      Here ('element') is the alias that we can use in the parent component . Suppose 
-      @Input('elementTo Send') element: Server = {name: '', content: ''}; then the selector in parent component would be
+      @Input('elementToSend') element: Server = {name: '', content: ''}; then the selector in parent component would be
        <app-server-element 
                 *ngFor="let server of serverElements"
                 [elementToSend]="server">
@@ -144,5 +144,3 @@
     ngAfterContentInit(): void {
     console.log('In aftercontentinit ',this.ulElement.nativeElement);
   }
-
-video till 73

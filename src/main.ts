@@ -11,11 +11,13 @@ import { RoutingConceptsModule } from './app/routing-concepts/routing-concepts.m
 import { FormsConceptModule } from './app/forms-concept/forms-concept.module';
 import { PipeModule } from './app/pipe/pipe.module';
 import { HttpConceptModule } from './app/http-concept/http-concept.module';
+import { AuthModule } from './app/auth/auth.module';
+import { DynamicComponentsModule } from './app/dynamic-components/dynamic-components.module';
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(HttpConceptModule)
-  .then(() => console.log('Http concept Module Concepts is bootstrap first'))
+platformBrowserDynamic().bootstrapModule(DynamicComponentsModule)
+  .then(() => console.log('Dynamic components Module Concepts is bootstrap first'))
   .catch(err => console.error(err));

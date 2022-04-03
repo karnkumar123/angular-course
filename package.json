@@ -7,7 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "dev": "ng serve --open --port 4200"
+    "start:server": "nodemon src/app/backend/app.js",
+    "start:client": "ng serve --open --port 4200",
+    "dev": "npm run start:server && npm run start:client"
   },
   "private": true,
   "dependencies": {
@@ -19,7 +21,11 @@
     "@angular/platform-browser": "~12.1.1",
     "@angular/platform-browser-dynamic": "~12.1.1",
     "@angular/router": "~12.1.1",
+    "body-parser": "^1.19.1",
     "bootstrap": "^3.4.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "mongoose": "^6.2.9",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
@@ -36,6 +42,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "nodemon": "^2.0.15",
     "typescript": "~4.3.2"
   }
 }

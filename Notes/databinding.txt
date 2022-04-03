@@ -3,7 +3,7 @@ Day 3 --------------------------------------------------------------------------
 1> Basics of databinding
     i> ts -> html = interpolation(string interpolation) {{}} , property binding [property]="data"
     ii> html -> ts = event binding (event)="expression"
-    iii> html -> <- ts = two way binding [(ngModel)]="data"
+    iii> html -> <- ts = two way binding [(ngModel)]="data" // require FormsModule to be imported
 
 2> String interpolation works for any typescript expression which yields string or converted to a string
    at the end.
@@ -34,9 +34,9 @@ Day 3 --------------------------------------------------------------------------
    it means we are giving instructions to the DOM to place the component at that place
    with its logic. 
 
-8> We have built-in and custom directives.
+8> We do have built-in and custom directives.
 
-9> Structural directive starts with *. This directive change  the structure of DOM
+9> Structural directive starts with *. This directive change the structure of DOM
    like adding or removing or updating the elements of the DOM.
 
 10> *ngIf="boolean value or any expression which returns boolean value"
@@ -56,11 +56,11 @@ Day 3 --------------------------------------------------------------------------
     </ng-template>
 
 12> Unlike structural directives, attribute directive don't add or remove elements.
-    Instead they only chnage the elements they were placed on.
+    Instead they only change the elements they were placed on.
 
 13> Anything which is built-in starts with ng.
 
-14> attribute directive ngStyle dynamically changes the appearance/css styles.
+14> attribute directive ngStyle or ngClass dynamically changes the appearance/css styles.
 
 15> ngStyle accepts an objects
     <div [ngStyle]="{backgroundColor: status==='online'?'green':'red'}"> // in html file
@@ -81,7 +81,7 @@ Day 3 --------------------------------------------------------------------------
 
 17> *ngFor is another structural directive we use for looping
     <div *ngFor="let player of team">{{player}}</div> // in html file
-    players = ['a','b','c','d']; // in ts file
+    team = ['a','b','c','d']; // in ts file
 
 
 <------------------------------------------------------------------------------------------------------------- 

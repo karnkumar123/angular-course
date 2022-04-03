@@ -22,7 +22,7 @@
     -> start in test mode for time being
     -> enable
 
-6> Import ReactiveFormsModule in module.ts file, and HttpClient in component from where we send the request.
+6> Import HttpClientModule in module.ts file, and HttpClient in component from where we send the request.
 
 7> We can't make a request without a subscribe.Angular is very smart.
 
@@ -73,7 +73,7 @@
     postsURL: string = 'https://learn-angular-4d591-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json';
     postURL = `${this.postsURL}?id=${this.id}&name=${this.name}`;
 
-    But sending as HttpParams is very easy and clear way.
+    But sending as HttpParams is very easy and very clear.
 
 12> whenever we subscribe, the HttpClient parses the data only responseData.body. We only get the body of response.
     If we want to get the whole responseData with statuscode or statusText , then we have to change as below.

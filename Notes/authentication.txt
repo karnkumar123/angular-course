@@ -1,0 +1,13 @@
+1> How authetication works?
+    -> client first signup/login on the browser. Server validates those credetials and return the success message of login with JSON token.
+       Server creates this token from some algorithm and encode the token before sending. Server only knows how to decode this token.
+       Now, server sends this encoded to client. Now client sends this token to server with its subsequent http request n header and server decode the token.
+       If server finds its a wrong token, the http request will fail then.
+
+2>  Authetication - process of verifying the user's identity
+    Authorization - process of find the user's accessbility for some resources
+
+3> JWT - A client application must submit a JWT in the authorization header of an HTTP request to our
+         backend API to authenticate a user.
+
+4>  

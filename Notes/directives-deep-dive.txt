@@ -43,7 +43,7 @@
     this._renderer2.setStyle(this._elRef.nativeElement, 'backgroundColor', 'cyan')
   }
 
-5> We can use @HostListener also in th directive class
+5> We can use @HostListener also in the directive class
     in directive class
 
      @HostListener('mouseenter') onMouseOver(event: MouseEvent){

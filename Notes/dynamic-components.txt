@@ -1,0 +1,10 @@
+1> Dynamic components are such components which are created at runtime. Ex- We can show modal(component) at runtime.
+
+2> There are two ways to load component programatically
+    -> using *ngIf
+    -> using Dynamic component loader
+
+    The 2nd way is more complex although it is alternative of ngIf. what ngIf does for us, we will do in dynamic 
+    component loader manually by developer.
+
+3> 

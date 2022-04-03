@@ -1,4 +1,4 @@
-1> For routing we can seperate dedicated file or even add in the module.ts file.
+1> For routing we can create seperate dedicated file or even add in the module.ts file.
 
 import { RouterModule, Routes } from '@angular/router';
 
